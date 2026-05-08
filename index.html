@@ -1,28 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>reCAPTCHA Example</title>
-
-    <!-- Google reCAPTCHA API -->
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <title>reCAPTCHA v3</title>
+    <script src="https://www.google.com/recaptcha/api.js?render=6LcRV-AsAAAAAJxlVb7yHM9UhLWTGWOiiahLHJxC"></script>
 </head>
 <body>
 
-    <h2>Google reCAPTCHA Demo</h2>
+<form id="form">
+    <button type="submit">Submit</button>
+</form>
 
-    <form action="verify.php" method="POST">
-        
-        <!-- reCAPTCHA -->
-        <div class="g-recaptcha" 
-             data-sitekey="6LcmV-AsAAAAAGH5JuMs8xFmOYA4dQ2OxROdyxC-">
-        </div>
+<script>
+grecaptcha.ready(function() {
+    grecaptcha.execute('6LcmV-AsAAAAAGH5JuMs8xFmOYA4dQ2OxROdyxC-', {action: 'submit'}).then(function(token) {
 
-        <br>
+        console.log("Token:", token);
 
-        <button type="submit">Submit</button>
-    </form>
+        // Add token to form
+        let input = document.createElement("input");
+        input.type = "hidden";
+        input.name = "g-recaptcha-response";
+        input.value = token;
+
+        document.getElementById("form").appendChild(input);
+    });
+});
+</script>
 
 </body>
 </html>
